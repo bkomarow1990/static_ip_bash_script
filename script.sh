@@ -1,6 +1,6 @@
 #!/bin/bash
 debian() {
-    ver="$(cat /home/bogdan/00-installer-config.yaml | grep -E "version: *")"
+    ver="$(cat /etc/netplan/*.yaml | grep -E "version: *")"
     netmask_correct="[1-9]|[1-2][0-9]|3[0-1]"
     ip_correct="(1[0-9][0-9]|[1-9][0-9]|[1-9]|2[0-4][0-9]|25[0-5]).(1[0-9][0-9]|[1-9][0-9]|[1-9]|2[0-5][0-9]|25[0-5]).(1[0-9][0-9]|[1-9][0-9]|[1-9]|2[0-5][0-9]|25[0-5]).(1[0-9][0-9]|[1-9][0-9]|[1-9]|2[0-5][0-9]|25[0-5])"
      read -r -p "ENTER IP ADDR " ip_add
