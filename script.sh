@@ -3,12 +3,12 @@ debian() {
     ver="$(cat /home/bogdan/00-installer-config.yaml | grep -E "version: *")"
     netmask_correct="[1-9]|[1-2][0-9]|3[0-1]"
     ip_correct="(1[0-9][0-9]|[1-9][0-9]|[1-9]|2[0-4][0-9]|25[0-5]).(1[0-9][0-9]|[1-9][0-9]|[1-9]|2[0-5][0-9]|25[0-5]).(1[0-9][0-9]|[1-9][0-9]|[1-9]|2[0-5][0-9]|25[0-5]).(1[0-9][0-9]|[1-9][0-9]|[1-9]|2[0-5][0-9]|25[0-5])"
-    read ip_add
+     read -r -p "ENTER IP ADDR " ip_add
     if [[ $ip_add =~ $ip_correct ]] ; then
     adapter=$(ls /sys/class/net | grep en.*)
-    read netmask
-    read dns1
-    read dns2
+    read -r -p "ENTER NETMASK" netmask
+    read -r -p "ENTER DNS 1" dns1
+    read -r -p "ENTER DNS 2" dns2
     if [[ $netmask =~ $netmask_correct ]] ; then
         read gateway
         if [[ $gateway =~ $ip_correct ]] ; then
