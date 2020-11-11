@@ -1,15 +1,18 @@
 #!/bin/bash
 debian() {
     #ip_correct="(1[0-9][0-9]|[1-9][0-9]|[1-9]|2[0-4][0-9]|25[0-5]).(1[0-9][0-9]|[1-9][0-9]|[1-9]|2[0-5][0-9]|25[0-5]).(1[0-9][0-9]|[1-9][0-9]|[1-9]|2[0-5][0-9]|25[0-5]).(1[0-9][0-9]|[1-9][0-9]|[1-9]|2[0-5][0-9]|25[0-5])"
-     netmask_correct = ^[0-32]
-     read -r -p "ENTER IP ADDR " ip_add
+     read -r -p "ENTER IP ADDR : " ip_add
     if [[ $ip_add =~ ^((25[0-5]|2[0-4][0-9]|[01][0-9][0-9]|[0-9]{1,2})[.]){3}(25[0-5]|2[0-4][0-9]|[01][0-9][0-9]|[0-9]{1,2})$ ]] ; then
-   # adapter=$(ls /sys/class/net | grep en.*)
-      read -r -p "ENTER NETMASK" netmask
-      read -r -p "ENTER DNS 1" dns1
-      read -r -p "ENTER DNS 2" dns2
-    if [[ $netmask =~ $netmask_correct ]] ; then
+   adapter=$(ls /sys/class/net | grep en.*)
+      read -r -p "ENTER NETMASK : " netmask
+      read -r -p "ENTER DNS 1 : " dns1
+      read -r -p "ENTER DNS 2 : " dns2
+    else
+    echo "Enter correct IP ADDR"
+    if [[ $netmask < 32 && $netmask > 0 ]] ; then
         read -r -p "ENTER DEFAULT GATEWAY " gateway
+    else 
+    echo "Enter correct NETMASK"
         if [[ $gateway =~ ^((25[0-5]|2[0-4][0-9]|[01][0-9][0-9]|[0-9]{1,2})[.]){3}(25[0-5]|2[0-4][0-9]|[01][0-9][0-9]|[0-9]{1,2})$ ]] ; then
             echo -e "network:" > /etc/netplan/*.yaml
             echo -e "  ethernets:" >> /etc/netplan/*.yaml
@@ -21,7 +24,8 @@ debian() {
             echo -e "      dhcp4: false" >> /etc/netplan/*.yaml
             echo -e "  version: 2" >> /etc/netplan/*.yaml
             sudo netplan apply
-            systemctl restart NetworkManager
+            else
+            echo "Enter correct DEFAULT GATEWAY"
             fi
         fi
     fi
