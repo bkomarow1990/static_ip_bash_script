@@ -40,7 +40,6 @@ redhat(){
   if [[ $ip_add =~ ^((25[0-5]|2[0-4][0-9]|[01][0-9][0-9]|[0-9]{1,2})[.]){3}(25[0-5]|2[0-4][0-9]|[01][0-9][0-9]|[0-9]{1,2})$ ]] ; then
   echo -e "EXAMPLE: 255.255.255.0"
   read -r -p "ENTER NETMASK ... " netmask
-    
     read -r -p "ENTER DNS 1 " dns1
   else 
     echo -e "Eneter correct IP"
@@ -58,7 +57,7 @@ redhat(){
         echo "INCORRECT DEFAULT GATEWAY"
         exit 1
       fi
-        if grep "BOOTPROTO" /etc/sysconfig/network-scripts/ifcfg-e* | grep "static" /etc/sysconfig/network-scripts/ifcfg-e* ; then
+        if grep "BOOTPROTO" /etc/sysconfig/network-scripts/ifcfg-e* | grep "dhcp" /etc/sysconfig/network-scripts/ifcfg-e* ; then
            sed -i "s/$var/BOOTPROTO=\"static\"/g" /etc/sysconfig/network-scripts/ifcfg-e*
         fi
         if grep "IPADDR" /etc/sysconfig/network-scripts/ifcfg-e* ; then
